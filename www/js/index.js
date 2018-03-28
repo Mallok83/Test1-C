@@ -47,10 +47,3 @@ var app = {
         console.log('Received Event: ' + id);
     }
 };
-
-if (typeof(Storage) != "undefined") {
-    localStorage.utente = "Mario Rossi";
-}
-
-
-document.getElementById("nome").innerHTML = "Ciao " + localStorage.utente;
