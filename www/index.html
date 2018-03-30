@@ -37,34 +37,21 @@
 					<iframe id="videoframe" width="100%" height="300" src="http://www.youtube.com/embed/8dOVI2mOI4k?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>		
 				</div>
 			<div role="main" class="ui-content" data-inset="false">
-				<ul data-role="listview" data-icon="false">
+				<ul data-role="listview" data-icon="false" id="videolist">
 					<li data-role="list-divider">
 						Video
 					</li>
-					<li>
-						<a href="#" onclick="changevideo();">
+					<!-- <li>
+						<a href="#" onclick="changevideo('xZk25hL57oU');">
 							<img src="" class="ui-thumbnail ui-thumbnail" />
 							<h2>Bob il treno</h2>
 							<p>Educativo - ITA</p>
 						</a>
-					</li>
-					<li>
-						<a href="#">
-							<img src="" class="ui-thumbnail ui-thumbnail" />
-							<h2>Masha e Orso</h2>
-							<p>Ludico - ITA</p>
-						</a>
-					</li>
-					<li>
-						<a href="#">
-							<img src="" class="ui-thumbnail ui-thumbnail" />
-							<h2>La casa di topolino</h2>
-							<p>Educativo - ENG</p>
-						</a>
-					</li>
+					</li>		-->
 				</ul>
 
 				<hr />
+				<div id="lista"></div>
 				<div id="nome"></div>
 				<div id="deviceready" class="blink">
 					<p class="event listening">Connecting to Device</p>
@@ -89,13 +76,46 @@
     <script type="text/javascript" src="js/index.js"></script>		
 		<script type="text/javascript">
 			app.initialize();
-			function changevideo() {
-				document.getElementById("videoframe").src = "http://www.youtube.com/embed/xZk25hL57oU?rel=0&amp;controls=0&amp;showinfo=0";
+			function changevideo(videoid) {
+				document.getElementById("videoframe").src = "http://www.youtube.com/embed/"+videoid+"?rel=0&amp;controls=0&amp;showinfo=0";
 			}
-			if (typeof(Storage) != "undefined") {
-				localStorage.utente = "Giulia";
-			}
-			document.getElementById("nome").innerHTML = "Ciao " + localStorage.utente;			
+			
+			//if (typeof(Storage) != "undefined") { localStorage.utente = "Giulia"; }
+			
+			document.getElementById("nome").innerHTML = "Ciao " + localStorage.utente;	
+
+
 		</script>	
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script>
+			function onGoogleLoad() {				
+				gapi.client.setApiKey(localStorage.GTApiKey);
+				gapi.client.load('youtube', 'v3', function() {
+
+					var request = gapi.client.youtube.playlistItems.list({
+						part: 'snippet',
+						playlistId: 'PLWWCF1LDEhZNuVoNLwei6oxv6aE6MPBZV',
+						maxResults: 50
+					});
+
+					request.execute(function(response) {
+						for (var i = 0; i < response.items.length; i++) {						
+							console.log("Title " + response.items[i].snippet.title + " published at " + response.items[i].snippet.publishedAt);
+							console.log(response.items[i].snippet.thumbnails.default.url);
+							console.log("ID " + response.items[i].snippet.resourceId.videoId);
+							var video=response.items[i].snippet.resourceId.videoId;
+							var urltmb=response.items[i].snippet.thumbnails.default.url;
+							$("#videolist").append('<li class="ui-li-has-thumb"><a href="#" class="ui-btn waves-effect waves-button waves-effect waves-button" onclick="changevideo(\''+video+'\');"><img src=\' '+urltmb+' \' class="ui-thumbnail ui-thumbnail" /><h2>'+response.items[i].snippet.title+'</h2></a></li>');
+						}
+					});
+				});
+			}
+			
+			
+		</script>
+
+		<script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>	
+	
 	</body>
 </html>
