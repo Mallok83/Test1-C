@@ -12,29 +12,12 @@
 		<link rel="stylesheet" href="vendor/waves/waves.min.css" />
 		<link rel="stylesheet" href="vendor/wow/animate.css" />
 		<link rel="stylesheet" href="css/nativedroid2.css" />
-		<style>
-			iframe a {display: none !important;}
-			#player {
-			  padding: 0px 0x;
-			  background: #555;
-			}
-	
-			.bar{
-			position:absolute;
-			bottom:0;
-			right:0;
-			width:150px;
-			height:150px;
-			}
-		</style>
 
 		<meta name="mobile-web-app-capable" content="yes">
 	 	<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
- 
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
 	</head>
-	
-	
 	<body onload="onLoad()">
 
 		<div data-role="page">
@@ -48,29 +31,23 @@
 			<div data-role="header" data-position="fixed" class="wow fadeInDown" data-wow-delay="0.2s">
 				<a href="#bottomsheet" class="ui-btn ui-btn-right wow fadeIn" data-wow-delay='1.2s'><i class="zmdi zmdi-more-vert"></i></a>
 				<a href="#leftpanel" class="ui-btn ui-btn-left wow fadeIn" data-wow-delay='0.8s'><i class="zmdi zmdi-menu"></i></a>
-				<h1 class="wow fadeIn" data-wow-delay='0.4s'>GiuTube</h1>
-				<div id="player"></div>
-					 <div class="bar" id="bottom-layer">.</div>
+				<h1 class="wow fadeIn" data-wow-delay='0.4s'>KTube</h1>
 			</div>
-			<!-- 
 				<div data-position="fixed"  class="wow">
 					<iframe id="videoframe" width="100%" height="300" src="http://www.youtube.com/embed/8dOVI2mOI4k?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-				</div>-->
-				
-				
+				</div>
 			<div role="main" class="ui-content" data-inset="false">
 				<ul data-role="listview" data-icon="false" id="videolist">
 					<li data-role="list-divider">
 						Video
 					</li>
-					<li>
+					<!-- <li>
 						<a href="#" onclick="changevideo('xZk25hL57oU');">
 							<img src="" class="ui-thumbnail ui-thumbnail" />
 							<h2>Bob il treno</h2>
 							<p>Educativo - ITA</p>
 						</a>
-					</li>		
-					
+					</li>		-->
 				</ul>
 
 				<hr />
@@ -101,8 +78,8 @@
 			app.initialize();
 			
 			function changevideo(videoid) {
-				document.getElementById("player").src = "http://www.youtube.com/embed/"+videoid+"?rel=0&controls=1&showinfo=0&modestbranding=1";
-				//"http://www.youtube.com/embed/"+videoid+"?rel=0&amp;controls=0&amp;showinfo=0";			
+				document.getElementById("videoframe").src = "http://www.youtube.com/embed/"+videoid+"?rel=0&controls=1&showinfo=0&modestbranding=1";
+				//"http://www.youtube.com/embed/"+videoid+"?rel=0&amp;controls=0&amp;showinfo=0";
 			}
 			
 			function onLoad() {
@@ -111,7 +88,7 @@
 			}	
 			
 			function onDeviceReady() {
-				alert(window.screen.width+' - '+window.screen.height+' - '+(window.screen.width/16)*9);
+				alert('Pronto');
 				document.getElementById("nome").innerHTML = "Ciao " + localStorage.utente;	
 			}				
 			function onBackKeyDown(e) {
@@ -125,52 +102,8 @@
 
 
 		</script>	
-		<script>
-      // 2. This code loads the IFrame Player API code asynchronously.
-      var tag = document.createElement('script');
 
-      tag.src = "https://www.youtube.com/iframe_api";
-      var firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-      // 3. This function creates an <iframe> (and YouTube player)
-      //    after the API code downloads.
-      var player;
-      function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', 
-		{ height:  (window.screen.width/16)*9/2,
-          width: '100%',
-          videoId: '8dOVI2mOI4k',
-		  playerVars: { 'showinfo' : 0,'iv_load_policy': 3, 'controls': 1, 'rel':0, 'modestbranding':1 },
-          events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-          }
-        });
-      }
-
-      // 4. The API will call this function when the video player is ready.
-      function onPlayerReady(event) {
-        event.target.playVideo();
-		event.target.setVolume(50); 
-      }
-
-      // 5. The API calls this function when the player's state changes.
-      //    The function indicates that when playing a video (state=1),
-      //    the player should play for six seconds and then stop.
-      var done = false;
-      function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PLAYING && !done) {
-          setTimeout(stopVideo, 6000);
-          done = true;
-        }
-      }
-      function stopVideo() {
-        player.stopVideo();
-      }
-    </script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		
 		<script>
 			function onGoogleLoad() {				
 				gapi.client.setApiKey(localStorage.GTApiKey);
@@ -197,8 +130,8 @@
 			
 			
 		</script>
-		<script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>
-			
+
+		<script src="https://apis.google.com/js/client.js?onload=onGoogleLoad"></script>	
 	
 	</body>
 </html>
