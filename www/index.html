@@ -210,8 +210,19 @@
 			
 			//if (typeof(Storage) != "undefined") { localStorage.utente = "Giulia"; }
 			
-			
-
+			function audio(nome){
+				var url = 'voci/verde.mp3';
+				var my_media = new Media(url, 
+					function ()		{ console.log("playAudio():Audio Success"); }, 
+					function (err)  { alert("playAudio():Audio Error: " + err); 
+						var url2 = '/android_asset/www/voci/verde.mp3';
+						var my_media2 = new Media(url2, onSuccess, onError);
+						my_media2.play();
+					});
+				my_media.play();
+			}
+			function onSuccess() { console.log("playAudio():Audio Success");  }
+			function onError(error)   { console.log(error.message);  }
 
 		</script>	
 		<script>
@@ -252,9 +263,7 @@
       function onPlayerStateChange(event) {
 		    if(event.data === 0) {
 				document.getElementById("game").style.display = "block";
-			    var url = 'voci/verde.mp3';
-				var my_media = new Media(url, function () { console.log("playAudio():Audio Success"); }, function (err) { alert("playAudio():Audio Error: " + err); });
-				my_media.play();				
+				audio('verde');
             }
         //if (event.data == YT.PlayerState.PLAYING && !done) {
           //setTimeout(stopVideo, 6000);
@@ -274,9 +283,7 @@
 	  function Gioco(quadrante) {
 			if(quadrante==3){document.getElementById("game").style.display = "none";}
 			else{
-			    var url = 'voci/verde.mp3';
-				var my_media = new Media(url, function () { console.log("playAudio():Audio Success"); }, function (err) { console.log("playAudio():Audio Error: " + err); });
-				my_media.play();
+			    audio('verde');
 			}
 	  }	  
     </script>
