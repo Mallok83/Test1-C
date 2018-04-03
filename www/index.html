@@ -24,6 +24,50 @@
 				float: left;
 				padding-top: 60%;
 			}
+			#game {
+				position: fixed; /* Sit on top of the page content */
+				display: none;
+				width: 100%; /* Full width (cover the whole page) */
+				height: 100%; /* Full height (cover the whole page) */
+				padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+				top: 0; 
+				left: 0;
+				right: 0;
+				bottom: 0;
+				/* background-color: rgba(255,200,100,0.9);  Black background with opacity */
+				z-index: 3; /* Specify a stack order in case you're using a different order for other elements */
+				cursor: pointer; /* Add a pointer on hover */
+			}			
+			.colonna {
+			   position:relative;
+			   float: left;
+			   width: 50%;
+			   height: 100%;
+			}
+			.riga {
+			   position:relative;
+			   float: clear;
+			   width: 100%;
+			   height: 33%;
+			}
+			#q1 {
+			   background-color: red;
+			}
+			#q2 {
+			   background-color: black;
+			}	
+			#q3 {
+			   background-color: green;
+			}	
+			#q4 {
+			   background-color: purple;
+			}
+			#q5 {
+			   background-color: white;
+			}	
+			#q6 {
+			   background-color: blue;
+			}				
 			#overlay {
 				position: fixed; /* Sit on top of the page content */
 				display: block;
@@ -78,6 +122,18 @@
 				<a href="#bottomsheet" class="ui-btn ui-btn-right wow fadeIn" data-wow-delay='1.2s'><i class="zmdi zmdi-more-vert"></i></a>
 				<a href="#leftpanel" class="ui-btn ui-btn-left wow fadeIn" data-wow-delay='0.8s'><i class="zmdi zmdi-menu"></i></a>
 				<h1 class="wow fadeIn" data-wow-delay='0.4s'>GiuTube</h1>
+				<div id="game">
+					<div class="colonna">
+						<div class="riga" id="q1" onclick="Gioco(1)"></div>
+						<div class="riga" id="q3" onclick="Gioco(3)"></div>
+						<div class="riga" id="q5" onclick="Gioco(5)"></div>
+					</div>
+					<div class="colonna">
+						<div class="riga" id="q2" onclick="Gioco(2)"></div>
+						<div class="riga" id="q4" onclick="Gioco(4)"></div>
+						<div class="riga" id="q6" onclick="Gioco(6)"></div>					
+					</div>
+				</div>
 				<div id="overlay" onclick="PlayerToggle()"></div>
 			    <!--<div class="bar" id="bottom-layer">.</div>-->
 			</div>
@@ -194,6 +250,12 @@
       //    the player should play for six seconds and then stop.
       var done = false;
       function onPlayerStateChange(event) {
+		    if(event.data === 0) {
+				document.getElementById("game").style.display = "block";
+			    var url = 'voci/verde.m4a';
+				var my_media = new Media(url, function () { console.log("playAudio():Audio Success"); }, function (err) { console.log("playAudio():Audio Error: " + err); });
+				my_media.play();				
+            }
         //if (event.data == YT.PlayerState.PLAYING && !done) {
           //setTimeout(stopVideo, 6000);
           //done = true;
@@ -208,6 +270,15 @@
 		if (status==0){	player.playVideo(); status=1; }
 		else 		  {	player.pauseVideo(); status=0;}
 	  }
+	  
+	  function Gioco(quadrante) {
+			if(quadrante==3){document.getElementById("game").style.display = "none";}
+			else{
+			    var url = 'voci/verde.m4a';
+				var my_media = new Media(url, function () { console.log("playAudio():Audio Success"); }, function (err) { console.log("playAudio():Audio Error: " + err); });
+				my_media.play();
+			}
+	  }	  
     </script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		
