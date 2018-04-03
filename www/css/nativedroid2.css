@@ -556,11 +556,13 @@ code {
 	border: 0px solid transparent;
 }
 
+
+
 .ui-header .ui-title, .ui-footer .ui-title {
 	text-align: left;
 	margin: 0px 72px;
-	font-size: 20px;
-	line-height: 1.8em;
+	font-size: 18px;
+	line-height: 1.6em;
 	font-weight: 400;
 	letter-spacing: 0.005em;
 }
