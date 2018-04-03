@@ -253,7 +253,7 @@
 		    if(event.data === 0) {
 				document.getElementById("game").style.display = "block";
 			    var url = 'voci/verde.mp3';
-				var my_media = new Media(url, function () { console.log("playAudio():Audio Success"); }, function (err) { console.log("playAudio():Audio Error: " + err); });
+				var my_media = new Media(url, function () { console.log("playAudio():Audio Success"); }, function (err) { alert("playAudio():Audio Error: " + err); });
 				my_media.play();				
             }
         //if (event.data == YT.PlayerState.PLAYING && !done) {
